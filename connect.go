@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
@@ -44,15 +43,18 @@ func registerClient(c *gin.Context) {
 		fmt.Println(msg)
 		return
 	}
-	for i := 0; i < 10; i++ {
-		time.Sleep(time.Second * 5)
-		res := getlink()
-		// mType, mByte, err := conn.ReadMessage()
-		// fmt.Println("mByte: ", string(mByte))
-		// fmt.Println("mType: ", mType)
-		// fmt.Println("err: ", err)
+	// for i := 0; i < 10; i++ {
+	// 	time.Sleep(time.Second * 5)
+	// 	res := getlink()
+	// 	// mType, mByte, err := conn.ReadMessage()
+	// 	// fmt.Println("mByte: ", string(mByte))
+	// 	// fmt.Println("mType: ", mType)
+	// 	// fmt.Println("err: ", err)
 
-		conn.WriteMessage(websocket.TextMessage, []byte(fmt.Sprintf("%s", res)))
-	}
+	// 	conn.WriteMessage(websocket.TextMessage, []byte(fmt.Sprintf("%s", res)))
+	// }
+	res := getlink()
+	sendMsg(res)
+	sendWp(res)
 	conn.Close()
 }
